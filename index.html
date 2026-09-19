@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>When Does Hong Kong Get Wet?</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+
+<main>
+
+  <!-- ==================================================
+       HERO
+  =================================================== -->
+
+  <section class="hero">
+
+    <div class="topline">
+
+      <span>HONG KONG</span>
+
+      <span>
+        DAILY RAINFALL · 2026
+      </span>
+
+      <span>
+        HKO
+      </span>
+
+    </div>
+
+
+    <div class="hero-main">
+
+      <h1>
+        WHEN DOES<br>
+        HONG KONG<br>
+        GET WET?
+      </h1>
+
+
+      <div class="hero-copy">
+
+        <p>
+          Move through the year and experience
+          Hong Kong's rainfall one day at a time.
+        </p>
+
+        <p class="small">
+          Every drop is generated from recorded
+          daily rainfall data.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="scroll-note">
+      ↓ ENTER THE RAIN
+    </div>
+
+  </section>
+
+
+
+  <!-- ==================================================
+       DATA SUMMARY
+  =================================================== -->
+
+  <section class="summary">
+
+    <article>
+      <div class="summary-number" id="daysObserved">
+        —
+      </div>
+
+      <div class="summary-label">
+        DAYS OBSERVED
+      </div>
+    </article>
+
+
+    <article>
+      <div class="summary-number" id="rainDays">
+        —
+      </div>
+
+      <div class="summary-label">
+        MEASURABLE RAIN DAYS
+      </div>
+    </article>
+
+
+    <article>
+      <div class="summary-number" id="totalRain">
+        —
+      </div>
+
+      <div class="summary-label">
+        TOTAL RAINFALL · MM
+      </div>
+    </article>
+
+
+    <article>
+      <div class="summary-number" id="wettestRain">
+        —
+      </div>
+
+      <div class="summary-label">
+        WETTEST DAY ·
+        <span id="wettestDate">—</span>
+      </div>
+    </article>
+
+  </section>
+
+
+
+  <!-- ==================================================
+       INTERACTIVE RAIN
+  =================================================== -->
+
+  <section class="experience-section">
+
+    <div class="section-heading">
+
+      <div>
+        <div class="section-index">01</div>
+
+        <h2>
+          EXPERIENCE<br>
+          THE RAIN
+        </h2>
+      </div>
+
+
+      <div class="section-copy">
+
+        <p>
+          Move your cursor horizontally through
+          the field below.
+        </p>
+
+        <p>
+          Your position represents a day in 2026.
+          Recorded rainfall controls the density,
+          length and speed of the rain.
+        </p>
+
+        <p>
+          Click anywhere to lock a day.
+        </p>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- THE ACTUAL INTERACTIVE AREA -->
+
+    <div id="rainExperience">
+
+      <canvas id="rainCanvas"></canvas>
+
+
+      <!-- current reading -->
+
+      <div class="rain-readout">
+
+        <div id="activeDate" class="active-date">
+          MOVE THROUGH THE YEAR
+        </div>
+
+
+        <div class="amount-row">
+
+          <span id="activeRain">
+            0.0
+          </span>
+
+          <span class="unit">
+            MM
+          </span>
+
+        </div>
+
+
+        <div id="rainCondition" class="condition">
+          MOVE LEFT ↔ RIGHT
+        </div>
+
+      </div>
+
+
+
+      <!-- lock indicator -->
+
+      <button
+        id="unlockButton"
+        class="unlock-button"
+        type="button"
+        hidden
+      >
+        UNLOCK DAY ×
+      </button>
+
+
+
+      <!-- timeline -->
+
+      <div class="timeline-wrapper">
+
+        <div class="timeline-message">
+          MOVE THROUGH 2026 →
+        </div>
+
+        <div id="timeline">
+
+          <div
+            id="timelineCursor"
+            class="timeline-cursor"
+          ></div>
+
+        </div>
+
+        <div
+          id="monthLabels"
+          class="month-labels"
+        ></div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- ==================================================
+       EXPLANATION
+  =================================================== -->
+
+  <section class="meaning">
+
+    <div class="section-index">
+      02
+    </div>
+
+
+    <div class="meaning-content">
+
+      <h2>
+        RAIN DOESN'T<br>
+        ARRIVE EVENLY.
+      </h2>
+
+
+      <div class="meaning-text">
+
+        <p>
+          A yearly rainfall total hides the rhythm
+          of weather.
+        </p>
+
+        <p>
+          Some days remain completely still.
+          Others contain only a trace. During the
+          wettest periods, rainfall suddenly
+          occupies the entire visual field.
+        </p>
+
+        <p>
+          Here, rainfall is not only represented
+          as a number. The number becomes an
+          environmental condition.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- ==================================================
+       FOOTER
+  =================================================== -->
+
+  <footer>
+
+    <div>
+      <strong>DATA</strong>
+      <span>Hong Kong Observatory</span>
+    </div>
+
+    <div>
+      <strong>PERIOD</strong>
+      <span id="period">
+        2026
+      </span>
+    </div>
+
+    <div>
+      <strong>VARIABLE</strong>
+      <span>
+        Daily Total Rainfall
+      </span>
+    </div>
+
+    <div>
+      <strong>PROJECT</strong>
+      <span>
+        SD5913 · 2026
+      </span>
+    </div>
+
+  </footer>
+
+</main>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>

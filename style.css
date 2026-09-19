@@ -1,0 +1,854 @@
+/* =========================================================
+   WHEN DOES HONG KONG GET WET?
+   Interactive Rainfall Visualization
+========================================================= */
+
+
+:root {
+  --paper: #efeee9;
+  --ink: #101010;
+  --muted: #73736d;
+  --line: rgba(16, 16, 16, 0.18);
+
+  --sky-top: #d9dde0;
+  --sky-bottom: #b9c1c7;
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+body {
+  margin: 0;
+
+  background: var(--paper);
+  color: var(--ink);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  -webkit-font-smoothing: antialiased;
+}
+
+
+main {
+  width: min(
+    1500px,
+    calc(100% - 72px)
+  );
+
+  margin: 0 auto;
+}
+
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+
+.hero {
+  min-height: 94vh;
+
+  padding:
+    34px
+    0
+    45px;
+
+  display: flex;
+  flex-direction: column;
+
+  border-bottom:
+    1px solid var(--ink);
+}
+
+
+.topline {
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    1fr
+    1fr;
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.13em;
+}
+
+
+.topline span:nth-child(2) {
+  text-align: center;
+}
+
+
+.topline span:last-child {
+  text-align: right;
+}
+
+
+.hero-main {
+  flex: 1;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 2.5fr)
+    minmax(250px, 0.8fr);
+
+  align-items: end;
+
+  gap: 50px;
+}
+
+
+.hero h1 {
+  margin: 100px 0 0;
+
+  font-size:
+    clamp(
+      72px,
+      10.5vw,
+      170px
+    );
+
+  line-height: 0.80;
+
+  letter-spacing: -0.075em;
+
+  font-weight: 800;
+}
+
+
+.hero-copy {
+  max-width: 350px;
+
+  margin-left: auto;
+
+  padding-bottom: 8px;
+
+  font-size: 17px;
+
+  line-height: 1.45;
+}
+
+
+.hero-copy .small {
+  margin-top: 30px;
+
+  color: var(--muted);
+
+  font-size: 12px;
+}
+
+
+.scroll-note {
+  margin-top: 50px;
+
+  font-size: 9px;
+
+  letter-spacing: 0.14em;
+}
+
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+
+.summary {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  border-bottom:
+    1px solid var(--ink);
+}
+
+
+.summary article {
+  min-height: 185px;
+
+  padding:
+    28px
+    24px
+    25px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+
+  border-right:
+    1px solid var(--line);
+}
+
+
+.summary article:first-child {
+  padding-left: 0;
+}
+
+
+.summary article:last-child {
+  border-right: 0;
+}
+
+
+.summary-number {
+  font-size:
+    clamp(
+      43px,
+      5vw,
+      75px
+    );
+
+  line-height: 1;
+
+  letter-spacing: -0.055em;
+}
+
+
+.summary-label {
+  font-size: 9px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.11em;
+}
+
+
+
+/* =========================================================
+   EXPERIENCE SECTION
+========================================================= */
+
+
+.experience-section {
+  padding:
+    90px
+    0
+    110px;
+
+  border-bottom:
+    1px solid var(--ink);
+}
+
+
+.section-heading {
+  display: grid;
+
+  grid-template-columns:
+    2fr
+    1fr;
+
+  gap: 50px;
+
+  margin-bottom: 65px;
+}
+
+
+.section-index {
+  margin-bottom: 12px;
+
+  color: var(--muted);
+
+  font-size: 10px;
+}
+
+
+.section-heading h2 {
+  margin: 0;
+
+  font-size:
+    clamp(
+      42px,
+      5vw,
+      75px
+    );
+
+  line-height: 0.9;
+
+  letter-spacing: -0.055em;
+}
+
+
+.section-copy {
+  max-width: 360px;
+
+  margin-left: auto;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+
+  color: var(--muted);
+}
+
+
+.section-copy p:first-child {
+  margin-top: 0;
+
+  color: var(--ink);
+}
+
+
+
+/* =========================================================
+   RAIN EXPERIENCE
+========================================================= */
+
+
+#rainExperience {
+  position: relative;
+
+  width: 100%;
+
+  height: 690px;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      180deg,
+      var(--sky-top) 0%,
+      var(--sky-bottom) 100%
+    );
+
+  cursor: crosshair;
+
+  user-select: none;
+
+  touch-action: pan-y;
+}
+
+
+/* subtle atmospheric grain */
+
+#rainExperience::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,0.05),
+      transparent 30%,
+      rgba(0,0,0,0.025)
+    );
+
+  z-index: 2;
+}
+
+
+#rainCanvas {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 1;
+
+  pointer-events: none;
+}
+
+
+
+/* =========================================================
+   CURRENT VALUE
+========================================================= */
+
+
+.rain-readout {
+  position: absolute;
+
+  top: 42px;
+  left: 42px;
+
+  z-index: 5;
+
+  pointer-events: none;
+}
+
+
+.active-date {
+  margin-bottom: 16px;
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.13em;
+}
+
+
+.amount-row {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 8px;
+}
+
+
+#activeRain {
+  font-size:
+    clamp(
+      90px,
+      10vw,
+      155px
+    );
+
+  line-height: 0.78;
+
+  letter-spacing: -0.075em;
+
+  font-weight: 500;
+}
+
+
+.unit {
+  margin-top: 4px;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.08em;
+}
+
+
+.condition {
+  margin-top: 24px;
+
+  font-size: 9px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.13em;
+
+  opacity: 0.55;
+}
+
+
+
+/* =========================================================
+   UNLOCK
+========================================================= */
+
+
+.unlock-button {
+  position: absolute;
+
+  top: 38px;
+  right: 38px;
+
+  z-index: 10;
+
+  border: 1px solid
+    rgba(0,0,0,0.35);
+
+  background: transparent;
+
+  padding:
+    11px
+    14px;
+
+  color: var(--ink);
+
+  font-family: inherit;
+
+  font-size: 9px;
+
+  letter-spacing: 0.12em;
+
+  cursor: pointer;
+}
+
+
+.unlock-button:hover {
+  background: var(--ink);
+
+  color: white;
+}
+
+
+
+/* =========================================================
+   TIMELINE
+========================================================= */
+
+
+.timeline-wrapper {
+  position: absolute;
+
+  left: 40px;
+  right: 40px;
+
+  bottom: 42px;
+
+  z-index: 8;
+}
+
+
+.timeline-message {
+  margin-bottom: 12px;
+
+  text-align: right;
+
+  font-size: 8px;
+
+  letter-spacing: 0.14em;
+
+  opacity: 0.5;
+}
+
+
+#timeline {
+  position: relative;
+
+  width: 100%;
+
+  height: 82px;
+
+  border-bottom:
+    1px solid
+    rgba(0,0,0,0.35);
+}
+
+
+.timeline-bar {
+  position: absolute;
+
+  bottom: 0;
+
+  min-width: 1px;
+
+  background:
+    rgba(0,0,0,0.45);
+
+  transform-origin: bottom;
+
+  pointer-events: none;
+}
+
+
+.timeline-bar.zero {
+  height: 2px !important;
+
+  opacity: 0.22;
+}
+
+
+.timeline-bar.active {
+  background: #111;
+
+  opacity: 1;
+}
+
+
+.timeline-cursor {
+  position: absolute;
+
+  left: 0;
+
+  bottom: 0;
+
+  width: 1px;
+
+  height: 102px;
+
+  background: #111;
+
+  pointer-events: none;
+
+  z-index: 5;
+}
+
+
+.timeline-cursor::before {
+  content: "";
+
+  position: absolute;
+
+  top: -4px;
+  left: -3px;
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #111;
+}
+
+
+.month-labels {
+  position: relative;
+
+  height: 30px;
+}
+
+
+.month-label {
+  position: absolute;
+
+  top: 8px;
+
+  transform:
+    translateX(-50%);
+
+  font-size: 8px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.1em;
+}
+
+
+
+/* =========================================================
+   LOCKED STATE
+========================================================= */
+
+
+#rainExperience.locked {
+  cursor: default;
+}
+
+
+#rainExperience.locked
+.timeline-cursor::before {
+  width: 9px;
+  height: 9px;
+
+  top: -5px;
+  left: -4px;
+}
+
+
+
+/* =========================================================
+   MEANING
+========================================================= */
+
+
+.meaning {
+  min-height: 700px;
+
+  padding:
+    90px
+    0
+    120px;
+
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    4fr;
+
+  border-bottom:
+    1px solid var(--ink);
+}
+
+
+.meaning-content h2 {
+  margin: 0 0 90px;
+
+  font-size:
+    clamp(
+      65px,
+      8vw,
+      125px
+    );
+
+  line-height: 0.84;
+
+  letter-spacing: -0.07em;
+}
+
+
+.meaning-text {
+  width: min(
+    500px,
+    100%
+  );
+
+  margin-left: auto;
+
+  font-size: 16px;
+
+  line-height: 1.55;
+}
+
+
+.meaning-text p {
+  margin:
+    0
+    0
+    24px;
+}
+
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+
+footer {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 30px;
+
+  padding:
+    30px
+    0
+    50px;
+}
+
+
+footer div {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+
+footer strong {
+  font-size: 8px;
+
+  letter-spacing: 0.12em;
+}
+
+
+footer span {
+  color: var(--muted);
+
+  font-size: 11px;
+}
+
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+
+@media (max-width: 850px) {
+
+  main {
+    width:
+      calc(100% - 32px);
+  }
+
+
+  .hero-main {
+    grid-template-columns: 1fr;
+  }
+
+
+  .hero h1 {
+    margin-top: 90px;
+  }
+
+
+  .hero-copy {
+    margin:
+      45px
+      0
+      0;
+  }
+
+
+  .summary {
+    grid-template-columns:
+      1fr
+      1fr;
+  }
+
+
+  .summary article:nth-child(2) {
+    border-right: 0;
+  }
+
+
+  .section-heading {
+    grid-template-columns: 1fr;
+
+    gap: 35px;
+  }
+
+
+  .section-copy {
+    margin-left: 0;
+  }
+
+
+  #rainExperience {
+    height: 600px;
+  }
+
+
+  .rain-readout {
+    top: 28px;
+    left: 24px;
+  }
+
+
+  .timeline-wrapper {
+    left: 20px;
+    right: 20px;
+  }
+
+
+  .unlock-button {
+    top: 20px;
+    right: 20px;
+  }
+
+
+  .meaning {
+    grid-template-columns: 1fr;
+
+    gap: 40px;
+  }
+
+
+  .meaning-text {
+    margin-left: 0;
+  }
+
+
+  footer {
+    grid-template-columns:
+      1fr
+      1fr;
+  }
+
+}
