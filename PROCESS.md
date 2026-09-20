@@ -1,15 +1,19 @@
 # Process
 
-<!-- Same as assignment 1, same honesty. Which tools you used and for what; one
-thing you kept and why it was good; one thing you rejected and why it was wrong.
-"I did not use any" is fine if it is true.
+## Tools used
 
-If a model wrote most of plot.py, which is likely and allowed, the interesting part
-is what you had to correct: did it invent a column name, use pandas where a list
-would do, silently drop the rows it could not parse? -->
+I used Python to fetch and process the rainfall data, and Matplotlib to create the static visualization. I also used HTML, CSS, and JavaScript to experiment with an interactive version of the same data.
 
-## Tools
+I used AI as a coding assistant during the process. It helped me understand errors, adjust the Python scripts, and develop the interactive web version. I tested the generated code myself and changed it when the result did not match what I wanted.
 
-## Kept
+## One thing I kept
 
-## Rejected
+I kept the idea of showing rainfall day by day instead of reducing the data to monthly averages. The daily values make the sudden changes much more visible, especially the large rainfall peaks during the wetter periods.
+
+I also kept the simple timeline structure because it makes the data easy to read without adding too many visual elements.
+
+## One thing I rejected
+
+I initially worked with temperature data from the assignment template, but I rejected it because it was only the example dataset and did not represent the phenomenon I wanted to explore.
+
+I also considered simplifying the rainfall into monthly totals, but I decided against it because this would hide the individual heavy-rain days. Keeping the daily data better shows how uneven rainfall can be over time.
