@@ -4,34 +4,69 @@
 
 ## The phenomenon
 
-Rain is a noticeable part of everyday life in Hong Kong. Since living here, I have noticed that the weather can change very quickly. Some days are completely dry, while heavy rain can suddenly affect transportation, outdoor activities, and daily plans.
+Rain is a very noticeable part of everyday life in Hong Kong. Since living here, I have noticed that the weather can change surprisingly quickly. A day can begin completely dry, but heavy rain can suddenly affect transportation, outdoor activities, and even simple daily plans.
 
-This made me curious about when Hong Kong actually gets wet. I wanted to see whether rainfall is spread relatively evenly over time or concentrated on particular days and periods. Instead of only looking at a total rainfall number, I chose to look at the daily changes during 2026 so far.
+This made me curious about what Hong Kong's rainfall actually looks like when it is viewed as data. Is rain spread relatively evenly across the year, or does most of it happen during a small number of intense periods?
 
-## The source
+Instead of only looking at the total amount of rainfall, I decided to look at each day of 2026 and use the changes over time to understand this pattern.
 
-The data comes from the Hong Kong Observatory (HKO), using its official weather and climate data. The raw rainfall data is saved in `data/hko-daily-rainfall-2026.csv`. It contains daily observations for 2026 so far, where each row represents one day and rainfall is measured in millimetres (mm).
+## The data
 
-Source: https://www.hko.gov.hk/en/cis/dailyExtract.htm?y=2026&m=0
+The data comes from the Hong Kong Observatory (HKO) and uses its official daily weather and climate records.
 
-## What the picture shows
+The rainfall data is stored in:
 
-The visualization shows how daily rainfall changes over time in Hong Kong during 2026 so far. Rainfall is not evenly distributed: many days have little or no rain, while several periods show sudden increases. The highest daily rainfall in the dataset is 122.6 mm on June 15.
+data/hko-daily-rainfall-2026.csv
 
-I focused on rainfall amount and time to make this pattern easier to see. This transformation leaves out other weather information such as temperature, humidity, wind, and the duration or cause of individual rain events.
+Each row represents one day in 2026, with rainfall measured in millimetres (mm).
 
-I also created an interactive web version where the rainfall data can be explored over time:
+Source: Hong Kong Observatory — Daily Extract of Meteorological Observations
 
+## From data to visualization
+
+I used Python to collect, organize, and visualize the rainfall records.
+
+fetch.py retrieves and prepares the rainfall data.
+
+plot.py turns the cleaned data into a visualization and saves the result in the out/ folder.
+
+The main information I chose to keep is simple:
+
+date → rainfall amount
+
+Other weather information, such as temperature, humidity, wind, and the causes of individual rain events, is intentionally left out. I wanted the project to focus specifically on the rhythm of rain over time.
+
+## What I found
+
+The visualization made one thing especially clear: rainfall in Hong Kong is not evenly distributed.
+
+Many days have little or no rainfall, while a smaller number of days create very large spikes. In the current dataset, the highest daily rainfall is 122.6 mm on June 15.
+
+Looking at the data day by day made this much more visible than simply reading a yearly rainfall total. The gaps between dry days and sudden heavy-rain days became part of the visual pattern itself.
+
+## Interactive version
+
+After creating the static visualization, I developed an interactive web version so the data could be explored rather than only viewed as a finished chart.
+
+The website allows the rainfall pattern to be experienced across time and turns the dataset into a small interactive visual experience.
+
+## Live Website:
 https://cshushs1.github.io/Rain/
 
-## Run it
+Run the project
 
 Fetch and save the source data:
 
-    uv run fetch.py
+uv run fetch.py
 
-Then generate the visualization:
+Generate the visualization:
 
-    uv run plot.py
+uv run plot.py
 
-The raw data is stored in `data/`, and the generated image is saved in `out/`.
+The raw data is stored in data/, and the generated visualization is saved in out/.
+
+## Reflection
+
+This project changed the way I thought about weather data. Rain was originally something I experienced through inconvenience—changing plans, carrying an umbrella, or suddenly getting caught outside. Turning those experiences into data showed me that the same phenomenon can also have a visible rhythm.
+
+For me, the interesting part of the project was not only learning how to fetch and plot data, but deciding what information to keep, what to remove, and how interaction could make a simple dataset feel more connected to everyday experience.
