@@ -50,20 +50,25 @@ After creating the static visualization, I developed an interactive web version 
 
 The website allows the rainfall pattern to be experienced across time and turns the dataset into a small interactive visual experience.
 
-## Live Website:
+## Live Website
+
 https://cshushs1.github.io/Rain/
 
-Run the project
+## Run the project
 
 Fetch and save the source data:
 
+```bash
 uv run fetch.py
+```
 
 Generate the visualization:
 
+```bash
 uv run plot.py
+```
 
-The raw data is stored in data/, and the generated visualization is saved in out/.
+The raw data is stored in `data/`, and the generated visualization is saved in `out/`.
 
 ## Reflection
 
